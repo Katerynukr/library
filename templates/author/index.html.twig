@@ -6,15 +6,24 @@
 {% block body %}
     <h1>Authors in Library ✅</h1>
     <p>List:</p>
-        <div class="author-list"><ul>
+        <table>
+            <tr>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Modify data</th>
+                <th>Delete data</th>
+            </tr>
     {% for author in authors %}
-        <div class="author"><li>
-        {{author.name}} {{author.surname}} 
-        <a href="{{ path('author_edit', {id: author.id}) }}">EDIT</a> 
-        <form action="{{ path('author_delete', {id: author.id}) }}" method="POST">
-        <button type="submit">DELETE</button>
-        </form>
-         </li></div>
+        <tr>
+            <td>{{author.name}}</td>
+            <td>{{author.surname}} </td>
+            <td><a href="{{ path('author_edit', {id: author.id}) }}">EDIT</a></td>
+            <td>
+                <form action="{{ path('author_delete', {id: author.id}) }}" method="POST">
+                    <button type="submit">DELETE</button>
+                </form>
+            </td>
+        </tr>
     {% endfor %} 
-    </ul></div>
+    </table>
 {% endblock %}

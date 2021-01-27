@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create new Book{% endblock %}
+
+{% block body %}
+<style>
+  
+</style>
+    <h1>Create new Book ✅</h1>
+    <form action="{{path('book_store')}}" method="POST">
+     <table>
+            <tr>
+                <th>Title</th>
+                <th>ISBN/th>
+                <th>Pages</th>
+                <th>About</th>
+                <th>Author list</th>
+            </tr>
+            <tr>
+                <td><input type="text" name="book_title"></td>
+                <td><input type="text" name="book_isbn"></td>
+                <td><input type="text" name="book_pages"></td>
+                <td><textarea name="book_about"></textarea></td>
+                <td><select name="book_author_id">
+                        {% for author in authors %}
+                        <option value="{{author.id}}">{{author.name}} {{author.surname}}</option>
+                        {% endfor %}
+                    </select>
+                 </td>
+            </tr>
+        </table>
+        <button type="submit">Add new Book</button>
+    </form>
+{% endblock %}
