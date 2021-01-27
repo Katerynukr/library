@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create New Author{% endblock %}
+
+{% block body %}
+    <h1>Create New Authour</h1>
+    <form action="{{path('author_store')}}" method="POST">
+        <span> Name: <input type="text" name="author_name"></span>
+        <span> Surname: <input type="text" name="author_surname"></span>
+        <button type="submit">Add new author</button>
+    </form>
+{% endblock %}

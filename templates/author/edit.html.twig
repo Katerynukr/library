@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modify Author Data{% endblock %}
+
+{% block body %}
+    <h1>Modify Author Data</h1>
+    <form action="{{path('author_update', {id: author.id})}}" method="POST">
+        <span> Name: <input type="text" name="author_name" value="{{author.name}}"></span>
+        <span> Surname: <input type="text" name="author_surname" value="{{author.surname}}"></span>
+        <button type="submit">Edit Author</button>
+    </form>
+{% endblock %}
