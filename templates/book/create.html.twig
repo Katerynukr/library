@@ -4,32 +4,79 @@
 
 {% block body %}
 <style>
-  
+  .main{
+    display:inline-block;
+    width:100%;
+    float:left;
+  }
+    form{
+        display:inline-block;
+        width: 1000px;
+        margin-left: calc(( 100% - 1000px ) / 2 );
+    }
+        .table{
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9em;
+            font-family: sans-serif;
+            min-width: 400px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        }
+            .table thead tr{
+                background-color: #009879;
+                color: #ffffff;
+                text-align: left;
+            }
+            .table th,
+            .table td {
+                padding: 12px 15px;
+            }
+            .table tbody tr {
+                border-bottom: 1px solid #dddddd;
+            }
+
+            .table tbody tr:nth-of-type(even) {
+                background-color: #f3f3f3;
+            }
+
+            .table tbody tr:last-of-type {
+                border-bottom: 2px solid #009879;
+            }
+            .table tbody tr:hover {
+                font-weight: bold;
+                color: #009879;
+            }
 </style>
-    <h1>Create new Book ✅</h1>
-    <form action="{{path('book_store')}}" method="POST">
-     <table>
-            <tr>
-                <th>Title</th>
-                <th>ISBN/</th>
-                <th>Pages</th>
-                <th>About</th>
-                <th>Author list</th>
-            </tr>
-            <tr>
-                <td><input type="text" name="book_title"></td>
-                <td><input type="text" name="book_isbn"></td>
-                <td><input type="text" name="book_pages"></td>
-                <td><textarea name="book_about"></textarea></td>
-                <td>
-                    <select name="book_author_id">
-                        {% for author in authors %}
-                        <option value="{{author.id}}">{{author.name}} {{author.surname}}</option>
-                        {% endfor %}
-                    </select>
-                 </td>
-            </tr>
-        </table>
-        <button type="submit">Add new Book</button>
-    </form>
+    <div class="main">
+        <h1>Create new Book ✅</h1>
+        <form action="{{path('book_store')}}" method="POST">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>ISBN/</th>
+                    <th>Pages</th>
+                    <th>About</th>
+                    <th>Author list</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="text" name="book_title"></td>
+                    <td><input type="text" name="book_isbn"></td>
+                    <td><input type="text" name="book_pages"></td>
+                    <td><textarea name="book_about"></textarea></td>
+                    <td>
+                        <select name="book_author_id">
+                            {% for author in authors %}
+                            <option value="{{author.id}}">{{author.name}} {{author.surname}}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+            </table>
+            <button type="submit">Add new Book</button>
+        </form>
+    </div>
 {% endblock %}
