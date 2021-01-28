@@ -11,7 +11,7 @@
      <table>
             <tr>
                 <th>Title</th>
-                <th>ISBN/th>
+                <th>ISBN/</th>
                 <th>Pages</th>
                 <th>About</th>
                 <th>Author list</th>
@@ -21,7 +21,8 @@
                 <td><input type="text" name="book_isbn"></td>
                 <td><input type="text" name="book_pages"></td>
                 <td><textarea name="book_about"></textarea></td>
-                <td><select name="book_author_id">
+                <td>
+                    <select name="book_author_id">
                         {% for author in authors %}
                         <option value="{{author.id}}">{{author.name}} {{author.surname}}</option>
                         {% endfor %}
