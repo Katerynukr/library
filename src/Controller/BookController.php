@@ -14,18 +14,26 @@ class BookController extends AbstractController
     /**
      * @Route("/book", name="book_index", methods={"GET"})
      */
-    public function index(): Response
+    public function index(Request $r): Response
     {
         $authors =  $this->getDoctrine()
         ->getRepository(Author::class)
         ->findAll();
         
         $books = $this->getDoctrine()
-        ->getRepository(Books::class)
-        ->findAll();
+        ->getRepository(Books::class);
+
+        if($r->query->get('filter') !== null ){
+            $books = $books->findBy(['author_id'=> $r->query->get('filter')]);
+        }else{
+            $books= $books->findAll();
+        }
+
+
         return $this->render('book/index.html.twig', [
             'books' => $books,
-            'authors'=>$authors
+            'authors'=>$authors,
+            'authorID'=>$r->query->get('filter') ?? 0
         ]);
     }
 

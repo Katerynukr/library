@@ -6,6 +6,28 @@
 {% block body %}
     <h1>Books in Library ✅</h1>
     <p>List:</p>
+    <table>
+        <tr>
+            <th>Filter</th>
+            <th>Drop Filter</th>
+        </tr>
+        <tr>
+            <td>
+                <form action="{{ path('book_index')}}" method="GET">
+                    <select name="filter">
+                        <option value="0">All</option>
+                        {% for author in authors %}
+                        <option value="{{author.id}}" {% if authorID == author.id %} selected {% endif %}>{{author.name}} {{author.surname}}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit">Filter</button>
+                </form>
+            </td>
+            <td>
+                <a href="{{path('book_index')}}"> x</a>
+            </td>
+        </tr>
+    </table>
         <table>
            <tr>
                 <th>Title</th>
