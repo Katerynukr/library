@@ -13,14 +13,26 @@ class AuthorController extends AbstractController
     /**
      * @Route("/author", name="author_index", methods= {"GET"})
      */
-    public function index(): Response
+    public function index(Request $r): Response
     {
         $authors = $this->getDoctrine()
-        ->getRepository(Author::class)
-        ->findAll();
+        ->getRepository(Author::class);
+
+        if($r->query->get('sort_by') == 'sort_by_name_asc'){
+            $authors = $authors->findBy([],['name' => 'asc']);
+        }elseif($r->query->get('sort_by') == 'sort_by_name_desc'){
+            $authors = $authors->findBy([],['name' => 'desc']);
+        }elseif($r->query->get('sort_by') == 'sort_by_surname_asc'){
+            $authors = $authors->findBy([],['surname' => 'asc']);
+        }elseif($r->query->get('sort_by') == 'sort_by_surname_desc'){
+            $authors = $authors->findBy([],['surname' => 'desc']);
+        }else{
+            $authors = $authors->findAll();
+        }
         
         return $this->render('author/index.html.twig', [
             'authors' => $authors,
+            'sortBy' => $r->query->get('sort_by') ?? 'default'
         ]);
 
     }

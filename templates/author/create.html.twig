@@ -5,8 +5,19 @@
 {% block body %}
     <h1>Create New Authour</h1>
     <form action="{{path('author_store')}}" method="POST">
-        <span> Name: <input type="text" name="author_name"></span>
-        <span> Surname: <input type="text" name="author_surname"></span>
-        <button type="submit">Add new author</button>
+        <table>
+            <tr>
+                <th>Name</th>
+                <td><input type="text" name="author_name"></td>
+            </tr>
+            <tr>
+                <th>Surname</th>
+                <td><input type="text" name="author_surname"></td>
+            </tr>
+            <tr>
+                <th></th>
+                <td><button type="submit">Add new author</button></td>
+            </tr>
+        </table>
     </form>
 {% endblock %}

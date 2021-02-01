@@ -6,13 +6,36 @@
 {% block body %}
     <h1>Authors in Library ✅</h1>
     <p>List:</p>
-        <table>
-            <tr>
-                <th>Firstname</th>
-                <th>Lastname</th>
-                <th>Modify data</th>
-                <th>Delete data</th>
-            </tr>
+    <table>
+        <tr>
+            <th>Sort By</th>
+            <th>Drop Sorting</th>
+        </tr>
+        <tr>
+            <td>
+                <form action="{{ path('author_index')}}" method="GET">
+                    <select name="sort_by">
+                        <option value="default" {% if sortBy == 'default'%}selected{% endif %}>default</option>
+                        <option value="sort_by_name_asc" {% if sortBy == 'sort_by_name_asc' %} selected {% endif %}>name a-z</option>
+                        <option value="sort_by_name_desc" {% if sortBy == 'sort_by_name_desc' %} selected {% endif %}>name z-a</option>
+                        <option value="sort_by_surname_asc" {% if sortBy == 'sort_by_surname_asc' %} selected {% endif %}>surname a-z</option>
+                        <option value="sort_by_surname_desc" {% if sortBy == 'sort_by_name_desc' %} selected {% endif %}>surname z-a</option>
+                    </select>
+                    <button type="submit">Sort IT!</button>
+                </form>
+            </td>
+            <td>
+                <a href="{{path('author_index')}}"> x</a>
+            </td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <th>Firstname</th>
+            <th>Surnname</th>
+            <th>Modify data</th>
+            <th>Delete data</th>
+        </tr>
     {% for author in authors %}
         <tr>
             <td>{{author.name}}</td>
