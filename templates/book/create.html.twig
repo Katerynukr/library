@@ -76,6 +76,7 @@
                 </tr>
             </tbody>
             </table>
+            <input type="hidden" name="token" value="{{ csrf_token('create_author_hidden') }}"/>
             <button type="submit">Add new Book</button>
         </form>
     </div>

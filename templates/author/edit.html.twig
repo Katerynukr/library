@@ -7,6 +7,7 @@
     <form action="{{path('author_update', {id: author.id})}}" method="POST">
         <span> Name: <input type="text" name="author_name" value="{{author.name}}"></span>
         <span> Surname: <input type="text" name="author_surname" value="{{author.surname}}"></span>
+        <input type="hidden" name="token" value="{{ csrf_token('create_author_hidden_update') }}"/>
         <button type="submit">Edit Author</button>
     </form>
 {% endblock %}

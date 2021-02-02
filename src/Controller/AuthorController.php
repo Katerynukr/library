@@ -121,7 +121,7 @@ class AuthorController extends AbstractController
 
         if (!$this->isCsrfTokenValid('create_author_hidden_update', $submittedToken)) {
             $r->getSession()->getFlashBag()->add('errors', 'Blogas Tokenas CSRF');
-            return $this->redirectToRoute('author_create');
+            return $this->redirectToRoute('author_edit');
         }
 
         $author = $this->getDoctrine()

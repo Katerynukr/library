@@ -34,7 +34,8 @@ class BookController extends AbstractController
         return $this->render('book/index.html.twig', [
             'books' => $books,
             'authors'=>$authors,
-            'authorID'=>$r->query->get('filter') ?? 0
+            'authorID'=>$r->query->get('filter') ?? 0,
+            'errors' => $r->getSession()->getFlashBag()->get('errors', [])
         ]);
     }
 
@@ -60,6 +61,13 @@ class BookController extends AbstractController
      */
     public function store(Request $r, ValidatorInterface $validator): Response
     {
+        $submittedToken = $r->request->get('token');
+
+        if (!$this->isCsrfTokenValid('create_author_hidden', $submittedToken)) {
+            $r->getSession()->getFlashBag()->add('errors', 'Blogas Tokenas CSRF');
+            return $this->redirectToRoute('author_create');
+        }
+
         $author = $this->getDoctrine()
         ->getRepository(Author::class)
         ->find($r->request->get('book_author_id'));
@@ -115,6 +123,13 @@ class BookController extends AbstractController
      */
     public function update(Request $r, int $id): Response
     {
+        $submittedToken = $r->request->get('token');
+
+        if (!$this->isCsrfTokenValid('create_author_hidden_update', $submittedToken)) {
+            $r->getSession()->getFlashBag()->add('errors', 'Blogas Tokenas CSRF');
+            return $this->redirectToRoute('book_edit');
+        }
+        
         $book = $this->getDoctrine()
         ->getRepository(Books::class)
         ->find($id);
@@ -145,6 +160,13 @@ class BookController extends AbstractController
      */
     public function delete(Request $r, int $id): Response
     {
+        $submittedToken = $r->request->get('token');
+       
+        if (!$this->isCsrfTokenValid('create_author_hidden_index', $submittedToken)) {
+            $r->getSession()->getFlashBag()->add('errors', 'Blogas Tokenas CSRF');
+            return $this->redirectToRoute('book_index');
+        }
+
         $book = $this->getDoctrine()
         ->getRepository(Books::class)
         ->find($id);
