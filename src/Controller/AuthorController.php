@@ -33,7 +33,8 @@ class AuthorController extends AbstractController
         
         return $this->render('author/index.html.twig', [
             'authors' => $authors,
-            'sortBy' => $r->query->get('sort_by') ?? 'default'
+            'sortBy' => $r->query->get('sort_by') ?? 'default',
+            'success' => $r->getSession()->getFlashBag()->get('success', [])
         ]);
 
     }
@@ -78,6 +79,8 @@ class AuthorController extends AbstractController
         //wrting
         $entityManager->flush();
 
+        $r->getSession()->getFlashBag()->add('success', 'Author was successfully created');
+
         return $this->redirectToRoute('author_index');
     }
 
@@ -114,6 +117,8 @@ class AuthorController extends AbstractController
         $entityManager->persist($author);
         //wrting
         $entityManager->flush();
+
+        $r->getSession()->getFlashBag()->add('success', 'Author '. $author->getName() .' '. $author->getSurname().' was successfully modified');
 
         return $this->redirectToRoute('author_index');
     }
