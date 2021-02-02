@@ -29,6 +29,7 @@
                     </select>
                 </td>
                 <td>
+                     <input type="hidden" name="token" value="{{ csrf_token('create_author_hidden_update') }}"/>
                     <button type="submit">Edit Book</button>
                 </td>
             </tr>

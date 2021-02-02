@@ -34,7 +34,8 @@ class AuthorController extends AbstractController
         return $this->render('author/index.html.twig', [
             'authors' => $authors,
             'sortBy' => $r->query->get('sort_by') ?? 'default',
-            'success' => $r->getSession()->getFlashBag()->get('success', [])
+            'success' => $r->getSession()->getFlashBag()->get('success', []),
+            'errors' => $r->getSession()->getFlashBag()->get('errors', [])
         ]);
 
     }
@@ -116,6 +117,13 @@ class AuthorController extends AbstractController
      */
     public function update(Request $r, int $id): Response
     {
+        $submittedToken = $r->request->get('token');
+
+        if (!$this->isCsrfTokenValid('create_author_hidden_update', $submittedToken)) {
+            $r->getSession()->getFlashBag()->add('errors', 'Blogas Tokenas CSRF');
+            return $this->redirectToRoute('author_create');
+        }
+
         $author = $this->getDoctrine()
         ->getRepository(Author::class)
         ->find($id);
@@ -141,6 +149,13 @@ class AuthorController extends AbstractController
      */
     public function delete(Request $r, int $id): Response
     {
+        $submittedToken = $r->request->get('token');
+       
+        if (!$this->isCsrfTokenValid('create_author_hidden_index', $submittedToken)) {
+            $r->getSession()->getFlashBag()->add('errors', 'Blogas Tokenas CSRF');
+            return $this->redirectToRoute('author_index');
+        }
+
         $author = $this->getDoctrine()
         ->getRepository(Author::class)
         ->find($id);
