@@ -61,7 +61,13 @@ class AuthorController extends AbstractController
     //validator reads constrains of the class and checks does obj sutisfies them
     public function store(Request $r, ValidatorInterface $validator): Response
     {
-        
+        $submittedToken = $r->request->get('token');
+
+        if (!$this->isCsrfTokenValid('create_author_hidden', $submittedToken)) {
+            $r->getSession()->getFlashBag()->add('errors', 'Blogas Tokenas CSRF');
+            return $this->redirectToRoute('author_create');
+        }
+
         $author = new Author;
         $author->
         setName($r->request->get('author_name'))->

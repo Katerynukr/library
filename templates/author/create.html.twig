@@ -16,7 +16,8 @@
             </tr>
             <tr>
                 <th></th>
-                <td><button type="submit">Add new author</button></td>
+                <td><button type="submit">Add new author</button>
+                 <input type="hidden" name="token" value="{{ csrf_token('create_author_hidden') }}"/></td>
             </tr>
         </table>
     </form>
