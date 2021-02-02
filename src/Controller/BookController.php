@@ -62,10 +62,10 @@ class BookController extends AbstractController
     public function store(Request $r, ValidatorInterface $validator): Response
     {
         $submittedToken = $r->request->get('token');
-
+        
         if (!$this->isCsrfTokenValid('create_author_hidden', $submittedToken)) {
             $r->getSession()->getFlashBag()->add('errors', 'Blogas Tokenas CSRF');
-            return $this->redirectToRoute('author_create');
+            return $this->redirectToRoute('book_create');
         }
 
         $author = $this->getDoctrine()
@@ -102,7 +102,7 @@ class BookController extends AbstractController
     /**
      * @Route("/book/edit/{id}", name="book_edit", methods= {"GET"})
      */
-    public function edit(int $id): Response
+    public function edit(Request $r, int $id): Response
     {
         $book = $this->getDoctrine()
         ->getRepository(Books::class)
@@ -114,7 +114,8 @@ class BookController extends AbstractController
         
         return $this->render('book/edit.html.twig', [
             'book' => $book,
-            'authors' => $authors
+            'authors' => $authors,
+            'errors' => $r->getSession()->getFlashBag()->get('errors', [])
         ]);
     }
 
@@ -123,16 +124,16 @@ class BookController extends AbstractController
      */
     public function update(Request $r, int $id): Response
     {
+        $book = $this->getDoctrine()
+        ->getRepository(Books::class)
+        ->find($id);
+
         $submittedToken = $r->request->get('token');
 
         if (!$this->isCsrfTokenValid('create_author_hidden_update', $submittedToken)) {
             $r->getSession()->getFlashBag()->add('errors', 'Blogas Tokenas CSRF');
-            return $this->redirectToRoute('book_edit');
+            return $this->redirectToRoute('book_edit',  ['id'=>$book->getId()] );
         }
-        
-        $book = $this->getDoctrine()
-        ->getRepository(Books::class)
-        ->find($id);
         
         $author = $this->getDoctrine()
         ->getRepository(Author::class)
@@ -161,7 +162,7 @@ class BookController extends AbstractController
     public function delete(Request $r, int $id): Response
     {
         $submittedToken = $r->request->get('token');
-       
+
         if (!$this->isCsrfTokenValid('create_author_hidden_index', $submittedToken)) {
             $r->getSession()->getFlashBag()->add('errors', 'Blogas Tokenas CSRF');
             return $this->redirectToRoute('book_index');
