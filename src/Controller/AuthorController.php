@@ -101,7 +101,7 @@ class AuthorController extends AbstractController
      /**
      * @Route("/author/edit/{id}", name="author_edit", methods= {"GET"})
      */
-    public function edit(int $id): Response
+    public function edit(Request $r, int $id): Response
     {
         $authors = $this->getDoctrine()
         ->getRepository(Author::class)
@@ -109,6 +109,7 @@ class AuthorController extends AbstractController
         
         return $this->render('author/edit.html.twig', [
             'author' => $authors,
+            'errors' => $r->getSession()->getFlashBag()->get('errors', [])
         ]);
     }
 
@@ -117,16 +118,18 @@ class AuthorController extends AbstractController
      */
     public function update(Request $r, int $id): Response
     {
-        $submittedToken = $r->request->get('token');
-
-        if (!$this->isCsrfTokenValid('create_author_hidden_update', $submittedToken)) {
-            $r->getSession()->getFlashBag()->add('errors', 'Blogas Tokenas CSRF');
-            return $this->redirectToRoute('author_edit');
-        }
-
         $author = $this->getDoctrine()
         ->getRepository(Author::class)
         ->find($id);
+
+        $submittedToken = $r->request->get('token');
+        $submittedToken =  $submittedToken.'n';
+        if (!$this->isCsrfTokenValid('create_author_hidden_update', $submittedToken)) {
+            $r->getSession()->getFlashBag()->add('errors', 'Blogas Tokenas CSRF');
+            return $this->redirectToRoute('author_edit',  ['id'=>$author->getId()] );
+        }
+
+       
         
         $author->
         setName($r->request->get('author_name'))->
@@ -150,6 +153,7 @@ class AuthorController extends AbstractController
     public function delete(Request $r, int $id): Response
     {
         $submittedToken = $r->request->get('token');
+        
        
         if (!$this->isCsrfTokenValid('create_author_hidden_index', $submittedToken)) {
             $r->getSession()->getFlashBag()->add('errors', 'Blogas Tokenas CSRF');
