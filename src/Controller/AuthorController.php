@@ -116,24 +116,34 @@ class AuthorController extends AbstractController
      /**
      * @Route("/author/update/{id}", name="author_update", methods= {"POST"})
      */
-    public function update(Request $r, int $id): Response
+    public function update(Request $r, int $id, ValidatorInterface $validator): Response
     {
         $author = $this->getDoctrine()
         ->getRepository(Author::class)
         ->find($id);
 
         $submittedToken = $r->request->get('token');
-        $submittedToken =  $submittedToken.'n';
+        
         if (!$this->isCsrfTokenValid('create_author_hidden_update', $submittedToken)) {
             $r->getSession()->getFlashBag()->add('errors', 'Blogas Tokenas CSRF');
             return $this->redirectToRoute('author_edit',  ['id'=>$author->getId()] );
         }
 
-       
-        
         $author->
         setName($r->request->get('author_name'))->
         setSurname($r->request->get('author_surname'));
+
+        $errors = $validator->validate($author);
+
+        // dd(count($errors));
+        if (count($errors) > 0){
+            foreach($errors as $error) {
+                $r->getSession()->getFlashBag()->add('errors', $error->getMessage());
+            }
+            $r->getSession()->getFlashBag()->add('author_name', $r->request->get('author_name'));
+            $r->getSession()->getFlashBag()->add('author_surname', $r->request->get('author_surname'));
+            return $this->redirectToRoute('author_edit', ['id'=>$author->getId()]);
+        }
 
         //creating entity manager sending data to database
         $entityManager = $this->getDoctrine()->getManager();
