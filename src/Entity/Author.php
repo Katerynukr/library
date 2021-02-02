@@ -29,17 +29,25 @@ class Author
      *      minMessage = "The name is too short. Minimum length is {{ limit }} characters",
      *      maxMessage = "The name cannot be longer than {{ limit }} characters"
      * )
+     * @Assert\Type(
+     *     type="alpha",
+     *     message="The value {{ value }} is not a valid {{ type }}."
+     * )
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=64)
-     *  @Assert\NotBlank(message="Surname field can not be empty!")
+     * @Assert\NotBlank(message="Surname field can not be empty!")
      * @Assert\Length(
      *      min = 2,
      *      max = 64,
      *      minMessage = "The surname is too short. Minimum length is {{ limit }} characters",
      *      maxMessage = "The surname cannot be longer than {{ limit }} characters"
+     * )
+     * @Assert\Type(
+     *     type="alpha",
+     *     message="The value {{ value }} is not a valid {{ type }}."
      * )
      */
     private $surname;
