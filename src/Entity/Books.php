@@ -61,6 +61,7 @@ class Books
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Positive
      */
     private $author_id;
 

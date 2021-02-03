@@ -1,7 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Create new Book{% endblock %}
-
+{% block head %}
+ <script src="https://cdn.ckeditor.com/4.16.0/standard-all/ckeditor.js"></script>
+{% endblock %}
 {% block body %}
 <style>
   .main{
@@ -54,7 +56,7 @@
             <thead>
                 <tr>
                     <th>Title</th>
-                    <th>ISBN/</th>
+                    <th>ISBN</th>
                     <th>Pages</th>
                     <th>About</th>
                     <th>Author list</th>
@@ -65,9 +67,11 @@
                     <td><input type="text" name="book_title"></td>
                     <td><input type="text" name="book_isbn"></td>
                     <td><input type="text" name="book_pages"></td>
-                    <td><textarea name="book_about"></textarea></td>
+                    <td><textarea name="book_about" id="editor1"></textarea>
+                    </td>
                     <td>
                         <select name="book_author_id">
+                            <option value="0">Choose author</option>
                             {% for author in authors %}
                             <option value="{{author.id}}">{{author.name}} {{author.surname}}</option>
                             {% endfor %}
@@ -79,5 +83,8 @@
             <input type="hidden" name="token" value="{{ csrf_token('create_author_hidden') }}"/>
             <button type="submit">Add new Book</button>
         </form>
+        <script>
+                CKEDITOR.replace('editor1');
+        </script>
     </div>
 {% endblock %}

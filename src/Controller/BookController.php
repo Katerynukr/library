@@ -1,5 +1,4 @@
 <?php
-//TODO: validation
 
 namespace App\Controller;
 
@@ -18,6 +17,9 @@ class BookController extends AbstractController
      */
     public function index(Request $r): Response
     {
+
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $authors =  $this->getDoctrine()
         ->getRepository(Author::class)
         ->findAll();
@@ -72,13 +74,19 @@ class BookController extends AbstractController
         $author = $this->getDoctrine()
         ->getRepository(Author::class)
         ->find($r->request->get('book_author_id'));
+
+        //dd($author);
+
+        if($author == null){
+            $r->getSession()->getFlashBag()->add('errors', 'Choose author from the list');
+        }
         
         $book = new Books;
 
         $book->
         setTitle($r->request->get('book_title'))->
         setIsbn($r->request->get('book_isbn'))->
-        setPages($r->request->get('book_pages'))->
+        setPages((int)$r->request->get('book_pages'))->
         setAbout($r->request->get('book_about'))->
         setAuthor($author);
 
@@ -87,6 +95,9 @@ class BookController extends AbstractController
             foreach($errors as $error) {
                 $r->getSession()->getFlashBag()->add('errors', $error->getMessage());
             }
+            return $this->redirectToRoute('book_create');
+        }
+        if(null === $author) {
             return $this->redirectToRoute('book_create');
         }
 
@@ -123,7 +134,7 @@ class BookController extends AbstractController
      /**
      * @Route("/book/update/{id}", name="book_update", methods= {"POST"})
      */
-    public function update(Request $r, int $id): Response
+    public function update(Request $r, int $id,  ValidatorInterface $validator): Response
     {
         $book = $this->getDoctrine()
         ->getRepository(Books::class)
@@ -139,6 +150,7 @@ class BookController extends AbstractController
         $author = $this->getDoctrine()
         ->getRepository(Author::class)
         ->find($r->request->get('books_author'));
+        
 
         $book->
         setTitle($r->request->get('book_title'))->
@@ -146,6 +158,14 @@ class BookController extends AbstractController
         setPages($r->request->get('book_pages'))->
         setAbout($r->request->get('book_about'))->
         setAuthor($author);
+
+        $errors = $validator->validate($book);
+        if (count($errors) > 0){
+            foreach($errors as $error) {
+                $r->getSession()->getFlashBag()->add('errors', $error->getMessage());
+            }
+            return $this->redirectToRoute('book_edit', ['id'=>$book->getId()] );
+        }
 
         //creating entity manager sending data to database
         $entityManager = $this->getDoctrine()->getManager();
