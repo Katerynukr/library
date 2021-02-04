@@ -44,7 +44,6 @@ class Books
 
     /**
      * @ORM\Column(type="integer")
-     * @Assert\NotBlank(message="Pages field can not be empty!")
      * @Assert\Positive(message="Pages field cannot have zero or negative amount of pages")
      * @Assert\Type(
      *     type="integer",

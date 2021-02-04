@@ -1,56 +1,107 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Books List{% endblock %}
+{% block title %}Books List
+{% endblock %}
 
 
 {% block body %}
-    <h1>Books in Library ✅</h1>
-    <p>List:</p>
-    <table>
-        <tr>
-            <th>Filter</th>
-            <th>Drop Filter</th>
-        </tr>
-        <tr>
-            <td>
-                <form action="{{ path('book_index')}}" method="GET">
-                    <select name="filter">
-                        <option value="0">All</option>
-                        {% for author in authors %}
-                        <option value="{{author.id}}" {% if authorID == author.id %} selected {% endif %}>{{author.name}} {{author.surname}}</option>
-                        {% endfor %}
-                    </select>
-                    <button type="submit">Filter</button>
-                </form>
-            </td>
-            <td>
-                <a href="{{path('book_index')}}"> x</a>
-            </td>
-        </tr>
-    </table>
-        <table>
-           <tr>
-                <th>Title</th>
-                <th>Author Name</th>
-                <th>Author Surname</th>
-                <th></th>
-                <th></th>
-            </tr>
-    {% for book in books %}
-        <tr>
-            <td>{{book.title}} </td>
-            <td>{{book.author.name}} </td>
-            <td>{{book.author.surname}} </td>
-            <td><a href="{{ path('book_edit', {id: book.id}) }}">EDIT</a></td>
-            <td>
-                <form action="{{ path('book_delete', {id: book.id}) }}" method="POST">
-                    <input type="hidden" name="token" value="{{ csrf_token('create_author_hidden_index') }}"/>
-                    <button type="submit">DELETE</button>
-                </form>
-            </td>
-        </tr>
-    {% endfor %} 
-    </table>
-{% endblock %}
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-8">
+				<div class="card">
+					<div class="card-header head-color">Books in Library</div>
 
- 
+					<div class="card-body bck">
+						List Filter By
+						<form action="{{ path('book_index')}}" method="GET" class="sort-form">
+							<select name="filter" class="btn btn-outline-dark dropdown-toggle">
+								<option value="0">All</option>
+								{% for author in authors %}
+									<option value="{{author.id}}" {% if authorID == author.id %} selected {% endif %}>{{author.name}}
+										{{author.surname}}</option>
+								{% endfor %}
+							</select>
+							<button type="submit" class="btn btn-sm">Filter</button>
+							<a href="{{path('book_index')}}" class="btn btn-sm">
+								<i class="fa fa-eraser" aria-hidden="true"></i>
+							</a>
+						</form>
+
+						<ul class="list-group bck">
+							{% for book in books %}
+								<li class="bck list-group-item list-group-item-dark">
+									<div class="list-group-item__line">
+										<span>
+											{{book.title}}
+											{{book.author.name}}
+											{{book.author.surname}}
+										</span>
+										<div class="list-group-item__line__buttons">
+											<a href="{{ path('book_edit', {id: book.id}) }}" class=" edit btn btn-info">
+												<i class="fa fa-pencil" aria-hidden="true"></i>
+											</a>
+											<form action="{{ path('book_delete', {id: book.id}) }}" method="POST">
+												<input type="hidden" name="token" value="{{ csrf_token('create_author_hidden_index') }}"/>
+												<button type="submit" class="delete btn btn-danger">
+													<i class="fa fa-trash" aria-hidden="true"></i>
+												</button>
+											</form>
+										</div>
+									</div>
+								</li>
+							{% endfor %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+{# 
+							    <h1>Books in Library ✅</h1>
+							    <p>List:</p>
+							    <table>
+							        <tr>
+							            <th>Filter</th>
+							            <th>Drop Filter</th>
+							        </tr>
+							        <tr>
+							            <td>
+							                <form action="{{ path('book_index')}}" method="GET">
+							                    <select name="filter">
+							                        <option value="0">All</option>
+							                        {% for author in authors %}
+							                        <option value="{{author.id}}" {% if authorID == author.id %} selected {% endif %}>{{author.name}} {{author.surname}}</option>
+							                        {% endfor %}
+							                    </select>
+							                    <button type="submit">Filter</button>
+							                </form>
+							            </td>
+							            <td>
+							                <a href="{{path('book_index')}}"> x</a>
+							            </td>
+							        </tr>
+							    </table>
+							        <table>
+							           <tr>
+							                <th>Title</th>
+							                <th>Author Name</th>
+							                <th>Author Surname</th>
+							                <th></th>
+							                <th></th>
+							            </tr>
+							    {% for book in books %}
+							        <tr>
+							            <td>{{book.title}} </td>
+							            <td>{{book.author.name}} </td>
+							            <td>{{book.author.surname}} </td>
+							            <td><a href="{{ path('book_edit', {id: book.id}) }}">EDIT</a></td>
+							            <td>
+							                <form action="{{ path('book_delete', {id: book.id}) }}" method="POST">
+							                    <input type="hidden" name="token" value="{{ csrf_token('create_author_hidden_index') }}"/>
+							                    <button type="submit">DELETE</button>
+							                </form>
+							            </td>
+							        </tr>
+							    {% endfor %} 
+							    </table> #}

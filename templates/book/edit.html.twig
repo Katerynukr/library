@@ -1,37 +1,88 @@
- {% extends 'base.html.twig' %}
+{% extends 'base.html.twig' %}
 
-{% block title %}Edit new Book{% endblock %}
+{% block title %}Edit new Book
+{% endblock %}
 
 {% block body %}
-    <h1>Edit new Book ✅</h1>
-    <form action="{{path('book_update', {id: book.id})}}" method="POST">
-     <table>
-           <tr>
-                <th>Title</th>
-                <th>ISBN</th>
-                <th>Pages</th>
-                <th>About</th>
-                <th>Author</th>
-                <th><th>
-            </tr>
-            <tr>
-                <td><input type="text" name="book_title" value="{{book.title}}"></td>
-                <td><input type="text" name="book_isbn" value="{{book.isbn}}"></td>
-                <td><input type="text" name="book_pages" value="{{book.pages}}"></td>
-                <td><textarea name="book_about">{{book.about}}</textarea></td>
-                <td>
-                    <select name="books_author">
-                        {% for author in authors %}
-                        <option value="{{author.id}}" {% if author.id == book.authorId %} selected {% endif %}>
-                        {{author.name}} {{author.surname}}
-                        </option>
-                        {% endfor %}
-                    </select>
-                </td>
-                <td>
-                     <input type="hidden" name="token" value="{{ csrf_token('create_author_hidden_update') }}"/>
-                    <button type="submit">Edit Book</button>
-                </td>
-            </tr>
-    </form>
-{% endblock %}
+	<script src="https://cdn.ckeditor.com/4.16.0/standard-all/ckeditor.js"></script>
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-8">
+				<div class="card">
+					<div class="head-color card-header">Edit the Book
+					</div>
+
+					<div class="card-body bck" >
+						<form action="{{path('book_update', {id: book.id})}}" method="POST">
+							<div class="form-group">
+								<label>Title:</label>
+								<input type="text" class="form-control" name="book_title" value="{{book.title}}">
+								<small class="form-text text-muted">Book title.</small>
+							</div>
+							<div class="form-group">
+								<label>ISBN:</label>
+								<input type="text" class="form-control" name="book_isbn" value="{{book.isbn}}">
+								<small class="form-text text-muted">Book ISBN code.</small>
+							</div>
+							<div class="form-group">
+								<label>Pages:</label>
+								<input type="text" class="form-control" name="book_pages" value="{{book.pages}}">
+								<small class="form-text text-muted">Pages count.</small>
+							</div>
+							<div class="form-group">
+								About:<textarea name="book_about">{{book.about}}</textarea>
+							</div>
+							<div class="form-group">
+								<select name="books_author" class="form-control">
+									{% for author in authors %}
+										<option value="{{author.id}}" {% if author.id == book.authorId %} selected {% endif %}>
+											{{author.name}}
+											{{author.surname}}
+										</option>
+									{% endfor %}
+								</select>
+							</div>
+							<input type="hidden" name="token" value="{{ csrf_token('create_author_hidden_update') }}"/>
+							<button type="submit" class="btn btn-dark edit">Edit Book</button>
+						</form>
+						<script>
+							CKEDITOR.replace('book_about');
+						</script>
+					</div>
+				</div>
+			</div>
+		</div>
+    </div>
+		{#    
+		    <h1>Edit new Book ✅</h1>
+		    <form action="{{path('book_update', {id: book.id})}}" method="POST">
+		     <table>
+		           <tr>
+		                <th>Title</th>
+		                <th>ISBN</th>
+		                <th>Pages</th>
+		                <th>About</th>
+		                <th>Author</th>
+		                <th><th>
+		            </tr>
+		            <tr>
+		                <td><input type="text" name="book_title" value="{{book.title}}"></td>
+		                <td><input type="text" name="book_isbn" value="{{book.isbn}}"></td>
+		                <td><input type="text" name="book_pages" value="{{book.pages}}"></td>
+		                <td><textarea name="book_about">{{book.about}}</textarea></td>
+		                <td>
+		                    <select name="books_author">
+		                        {% for author in authors %}
+		                        <option value="{{author.id}}" {% if author.id == book.authorId %} selected {% endif %}>
+		                        {{author.name}} {{author.surname}}
+		                        </option>
+		                        {% endfor %}
+		                    </select>
+		                </td>
+		                <td>
+		                     <input type="hidden" name="token" value="{{ csrf_token('create_author_hidden_update') }}"/>
+		                    <button type="submit">Edit Book</button>
+		                </td>
+		            </tr>
+		    </form> #}
+	{% endblock %}
