@@ -2,7 +2,7 @@
 
 {% block title %}Create new Book{% endblock %}
 {% block head %}
- <script src="https://cdn.ckeditor.com/4.16.0/standard-all/ckeditor.js"></script>
+
 {% endblock %}
 {% block body %}
 <style>
@@ -49,6 +49,7 @@
                 color: #009879;
             }
 </style>
+ <script src="https://cdn.ckeditor.com/4.16.0/standard-all/ckeditor.js"></script>
     <div class="main">
         <h1>Create new Book ✅</h1>
         <form action="{{path('book_store')}}" method="POST">
@@ -67,7 +68,7 @@
                     <td><input type="text" name="book_title"></td>
                     <td><input type="text" name="book_isbn"></td>
                     <td><input type="text" name="book_pages"></td>
-                    <td><textarea name="book_about" id="editor1"></textarea>
+                    <td><textarea name="book_about" ></textarea>
                     </td>
                     <td>
                         <select name="book_author_id">
@@ -84,7 +85,7 @@
             <button type="submit">Add new Book</button>
         </form>
         <script>
-                CKEDITOR.replace('editor1');
+                CKEDITOR.replace('book_about');
         </script>
     </div>
 {% endblock %}

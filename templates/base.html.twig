@@ -3,7 +3,10 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+          <link href="http://localhost/library/public/build/app.css" rel="stylesheet"/>
+        <script src="http://localhost/library/public/build/app.js" defer></script>
+        {% block stylesheets %}<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+       {% endblock %}
 
         {% block javascripts %}{% endblock %}
     </head>

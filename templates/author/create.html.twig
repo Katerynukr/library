@@ -3,22 +3,33 @@
 {% block title %}Create New Author{% endblock %}
 
 {% block body %}
-    <h1>Create New Authour</h1>
-    <form action="{{path('author_store')}}" method="POST">
-        <table>
-            <tr>
-                <th>Name</th>
-                <td><input type="text" name="author_name" value="{{author_name}}"></td>
-            </tr>
-            <tr>
-                <th>Surname</th>
-                <td><input type="text" name="author_surname" value="{{author_surname}}"></td>
-            </tr>
-            <tr>
-                <th></th>
-                <td><button type="submit">Add new author</button>
-                 <input type="hidden" name="token" value="{{ csrf_token('create_author_hidden') }}"/></td>
-            </tr>
-        </table>
-    </form>
+
+<div class="container">
+   <div class="row justify-content-center">
+       <div class="col-md-8">
+           <div class="card">
+               <div class="card-header">Create New Authour</div>
+               <div class="card-body">
+                     <form action="{{path('author_store')}}" method="POST">
+                        <div class="form-group">
+                                <label>Name:</label>
+                                <input type="text" class="form-control" name="author_name" value="{{author_name}}">
+                                <small class="form-text text-muted">Author name.</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Surname:</label>
+                                <input type="text" class="form-control" name="author_surname" value="{{author_surname}}">
+                                <small class="form-text text-muted">Author name.</small>
+                            </div>
+                            <input type="hidden" name="token" value="{{ csrf_token('create_author_hidden') }}"/>
+                            <button type="submit" class="btn btn-primary btn-block">Add new author</button>
+                        </div>   
+                    </form>
+               </div>
+           </div>
+       </div>
+   </div>
+</div>
+ 
 {% endblock %}
