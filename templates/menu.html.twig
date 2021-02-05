@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
 	<div class="container">
 		<a class="navbar-brand" href="">
-			Kaimuko Biblioteka
+			Your Personal Library
 		</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
@@ -13,8 +13,7 @@
 			<ul	class="navbar-nav ml-auto">
 				<!-- Authentication Links -->
 				{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-					<li class="nav-item dropdown show">
-                   
+					<li class="nav-item dropdown">
 						<a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
 							Authors
 						</a>

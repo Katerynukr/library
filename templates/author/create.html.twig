@@ -7,8 +7,10 @@
 <div class="container">
    <div class="row justify-content-center">
        <div class="col-md-8">
-           <div class="card">
-               <div class="card-header color-head">Create New Authour</div>
+           <div class="card fraim">
+               <div class="card-header head-color">
+                    <h1>Create New Authour</h1>
+                </div>
                <div class="card-body bck">
                      <form action="{{path('author_store')}}" method="POST">
                         <div class="form-group">
@@ -23,7 +25,7 @@
                                 <small class="form-text text-muted">Author name.</small>
                             </div>
                             <input type="hidden" name="token" value="{{ csrf_token('create_author_hidden') }}"/>
-                            <button type="submit" class="edit btn btn-primary btn-block">Add new author</button>
+                            <button type="submit" class="save-btn btn btn-block">Add new author</button>
                         </div>   
                     </form>
                </div>

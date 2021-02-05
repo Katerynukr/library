@@ -8,8 +8,10 @@
 	<div class="container">
 		<div class="row justify-content-center">
 			<div class="col-md-8">
-				<div class="card">
-					<div class="card-header head-color">Books in Library</div>
+				<div class="card fraim">
+					<div class="card-header head-color">
+						<h1>Books in Library</h1>
+					</div>
 
 					<div class="card-body bck">
 						List Filter By
@@ -32,17 +34,21 @@
 								<li class="bck list-group-item list-group-item-dark">
 									<div class="list-group-item__line">
 										<span>
-											{{book.title}}
-											{{book.author.name}}
-											{{book.author.surname}}
+											<div class="single-element">
+												{{book.title}}
+											</div>
+											<div class="single-element-small">
+												{{book.author.name}}
+												{{book.author.surname}}
+											</div>
 										</span>
 										<div class="list-group-item__line__buttons">
-											<a href="{{ path('book_edit', {id: book.id}) }}" class=" edit btn btn-info">
+											<a href="{{ path('book_edit', {id: book.id}) }}" class=" edit btn">
 												<i class="fa fa-pencil" aria-hidden="true"></i>
 											</a>
 											<form action="{{ path('book_delete', {id: book.id}) }}" method="POST">
 												<input type="hidden" name="token" value="{{ csrf_token('create_author_hidden_index') }}"/>
-												<button type="submit" class="delete btn btn-danger">
+												<button type="submit" class="delete btn">
 													<i class="fa fa-trash" aria-hidden="true"></i>
 												</button>
 											</form>

@@ -9,8 +9,10 @@
 	<div class="container">
 		<div class="row justify-content-center">
 			<div class="col-md-8">
-				<div class="card">
-					<div class="card-header head-color">Modify Author Data</div>
+				<div class="card fraim">
+					<div class="card-header head-color">
+						<h1>Modify Author Data</h1>
+					</div>
 
 					<div class="card-body bck">
 						<form action="{{path('author_update', {id: author.id})}}" method="POST">
@@ -28,7 +30,7 @@
 							</div>
 
 							<input type="hidden" name="token" value="{{ csrf_token('create_author_hidden_update') }}"/>
-							<button type="submit" class="btn btn-dark edit">Edit Author</button>
+							<button type="submit" class="btn save-btn btn-block">Edit Author</button>
 						</form>
 					</div>
 				</div>

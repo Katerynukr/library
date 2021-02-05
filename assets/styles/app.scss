@@ -4,17 +4,53 @@
 @import '~@fortawesome/fontawesome-free/scss/solid';
 @import '~@fortawesome/fontawesome-free/scss/regular';
 @import '~@fortawesome/fontawesome-free/scss/brands';
+@import url('https://fonts.googleapis.com/css?family=Lemonada');
 
 body {
-    background-image: linear-gradient(hotpink, tomato);
+    background-color:#CCA37A;
+    
 }
-.edit,
+h1{
+    text-align: center;
+    font-family:Lemonada;
+    font-weight: bolder;
+}
+ul, li{
+    
+}
+.navbar,
+.single-element{
+    font-family:Lemonada;
+}
+.single-element-small{
+    font-family:Lemonada;
+    font-size:12px;
+}
+.fraim{
+    border: solid;
+}
+a{
+    text-decoration: none;
+}
+
+.edit{
+    background-color: #FFFF99;
+}
 .add{
-    background-color:#ffcc99
+    background-color:#ffcc99;
+}
+.save-btn{
+    background-color:#65605B;
+    color:#ffcc99;
+}
+.save-btn:hover{
+    background-color:#ffcc99;
+    color:#65605B;
+    border:solid;
 }
 .delete,
 .pink{
-    background-color:#ff6699
+    background-color:#FF9999;
 }
 .bck{
     background-color:#f8d1aa;
@@ -24,6 +60,9 @@ body {
 }
 .head-color{
     background-color:#f6c492;
+}
+.single-book-list:hover{
+    background-color:#BFAC99;
 }
 .list-group-item {
     &__line {

@@ -8,8 +8,9 @@
 	<div class="container">
 		<div class="row justify-content-center">
 			<div class="col-md-8">
-				<div class="card">
-					<div class="head-color card-header">Edit the Book
+				<div class="card fraim">
+					<div class="head-color card-header">
+						<h1>Edit the Book</h1>
 					</div>
 
 					<div class="card-body bck" >
@@ -43,7 +44,7 @@
 								</select>
 							</div>
 							<input type="hidden" name="token" value="{{ csrf_token('create_author_hidden_update') }}"/>
-							<button type="submit" class="btn btn-dark edit">Edit Book</button>
+							<button type="submit" class="btn save-btn btn-block">Edit Book</button>
 						</form>
 						<script>
 							CKEDITOR.replace('book_about');
