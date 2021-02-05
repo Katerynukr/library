@@ -4,15 +4,16 @@
 @import '~@fortawesome/fontawesome-free/scss/solid';
 @import '~@fortawesome/fontawesome-free/scss/regular';
 @import '~@fortawesome/fontawesome-free/scss/brands';
-@import url('https://fonts.googleapis.com/css?family=Lemonada');
+@import url('https://fonts.googleapis.com/css?family=Cinzel');
 
 body {
-    background-color:#CCA37A;
+    background-color: white;
+    font-family:Cinzel;
     
 }
 h1{
     text-align: center;
-    font-family:Lemonada;
+    font-family:Cinzel;
     font-weight: bolder;
 }
 ul, li{
@@ -20,7 +21,7 @@ ul, li{
 }
 .navbar,
 .single-element{
-    font-family:Lemonada;
+    font-family:Cinzel;
 }
 .single-element-small{
     font-family:Lemonada;
@@ -100,4 +101,7 @@ form.sort-form {
         height: 38px;
         margin: 0 10px;
     }
+}
+.menu-black{
+    background-color: black;
 }

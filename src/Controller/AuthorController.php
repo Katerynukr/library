@@ -174,6 +174,11 @@ class AuthorController extends AbstractController
         ->getRepository(Author::class)
         ->find($id);
 
+        if ($author->getBooks()->count() > 0) {
+            $r->getSession()->getFlashBag()->add('errors', 'You cannot deleate the author because it has books' );
+            return $this->redirectToRoute('author_index');
+        }
+
         //creating entity manager sending data to database
         $entityManager = $this->getDoctrine()->getManager();
         //organizing data to be send
