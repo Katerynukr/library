@@ -46,3 +46,5 @@ author_id : int(11)
 
 
 ### project was made with Symfony framework
+
+http://localhost/library/public/index.php/author/create
